@@ -59,13 +59,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_message'])) {
     <!-- Dark overlay taake text clearly parha jaye -->
     <div class="absolute inset-0 bg-green-deep/60"></div>
 
-
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
             <!-- Left: Gold Medallion -->
             <div class="flex justify-center lg:justify-start order-1">
-                <img src="<?php echo SITE_URL; ?>/image/medallion.webp" alt="Islamic Calligraphy Medallion" class="w-full max-w-sm drop-shadow-2xl">
+                <img src="<?php echo SITE_URL; ?>/image/medallion.webp" alt="Islamic Calligraphy Medallion" class="w-full max-w-md drop-shadow-2xl">
             </div>
 
             <!-- Right: Text content -->
@@ -143,28 +142,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_message'])) {
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <?php foreach ($courses as $c): ?>
-                <div class="bg-white rounded border border-gray-200 overflow-hidden group hover:shadow-lg transition">
-                    <div class="bg-green-deep h-32 flex items-center justify-center relative">
-                        <span class="absolute top-2 right-2 bg-gold text-white text-xs px-2 py-1 rounded"><?php echo htmlspecialchars($c['status']); ?></span>
-                        <h4 class="arabic-text text-gold-light text-2xl"><?php echo htmlspecialchars($c['title_ur']); ?></h4>
+                <div class="bg-white rounded-xl border border-gray-100 overflow-hidden group shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col">
+                    <!-- Card Header -->
+                    <div class="relative bg-gradient-to-br from-green-deep to-green-mid h-36 flex items-center justify-center overflow-hidden">
+                        <!-- Subtle dotted pattern -->
+                        <div class="absolute inset-0 opacity-[0.08]" style="background-image: radial-gradient(#C9960A 1px, transparent 1px); background-size: 14px 14px;"></div>
+                        <!-- Status badge -->
+                        <span class="absolute top-3 right-3 bg-gold text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full shadow-md"><?php echo htmlspecialchars($c['status']); ?></span>
+                        <h4 class="arabic-text text-gold-light text-3xl relative z-10 px-4 text-center group-hover:scale-105 transition-transform duration-300"><?php echo htmlspecialchars($c['title_ur']); ?></h4>
+                        <!-- Gold accent line -->
+                        <div class="absolute bottom-0 left-0 w-full h-1 bg-gold"></div>
                     </div>
-                    <div class="p-6">
-                        <h3 class="font-english font-semibold text-lg text-green-deep mb-2 h-14 line-clamp-2"><?php echo htmlspecialchars($c['title_en']); ?></h3>
-                        <div class="text-xs text-muted mb-4 flex justify-between border-b border-gray-100 pb-2">
-                            <span><?php echo $c['total_lessons']; ?> Lessons</span>
-                            <span><?php echo htmlspecialchars($c['format']); ?></span>
+
+                    <!-- Card Body -->
+                    <div class="p-6 flex flex-col flex-1">
+                        <h3 class="font-english font-semibold text-lg text-green-deep mb-3 h-14 line-clamp-2 group-hover:text-green-mid transition"><?php echo htmlspecialchars($c['title_en']); ?></h3>
+                        <div class="text-xs text-muted mb-5 flex justify-between items-center border-b border-gray-100 pb-3">
+                            <span class="flex items-center gap-1.5">
+                                <svg class="w-4 h-4 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.25C10.5 5 8.5 4.5 5 4.5v13c3.5 0 5.5.5 7 1.75M12 6.25C13.5 5 15.5 4.5 19 4.5v13c-3.5 0-5.5.5-7 1.75M12 6.25v13"/></svg>
+                                <?php echo $c['total_lessons']; ?> Lessons
+                            </span>
+                            <span class="flex items-center gap-1.5">
+                                <svg class="w-4 h-4 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><circle cx="12" cy="12" r="9" stroke-width="2"/></svg>
+                                <?php echo htmlspecialchars($c['format']); ?>
+                            </span>
                         </div>
 
-                        <div class="flex gap-2">
+                        <div class="flex gap-2 mt-auto">
                             <button
-                                class="view-btn flex-1 border border-gold text-gold py-2 rounded text-xs hover:bg-gold hover:text-white transition"
+                                class="view-btn flex-1 border border-gold text-gold py-2.5 rounded-lg text-xs font-semibold hover:bg-gold hover:text-white transition"
                                 data-course='<?php echo json_encode($c, JSON_HEX_APOS | JSON_HEX_QUOT); ?>'
                                 data-mode="details">
                                 View Details
                             </button>
 
                             <button
-                                class="view-btn flex-1 bg-green-mid text-white py-2 rounded text-xs hover:bg-green-deep transition"
+                                class="view-btn flex-1 bg-green-mid text-white py-2.5 rounded-lg text-xs font-semibold hover:bg-green-deep transition shadow-sm"
                                 data-course='<?php echo json_encode($c, JSON_HEX_APOS | JSON_HEX_QUOT); ?>'
                                 data-mode="enroll">
                                 Enroll Free
@@ -313,38 +326,136 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_message'])) {
 </section>
 
 <!-- Audios Section -->
-<section id="audios" class="py-20 bg-cream">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="mb-12 text-center">
-            <h2 class="font-english text-4xl text-green-deep">Audio Bayanaat</h2>
-            <h3 class="arabic-text text-gold text-3xl mt-2">آڈیو بیانات</h3>
-        </div>
-        <div class="space-y-6">
-            <?php foreach ($audios as $a): ?>
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 flex flex-col md:flex-row items-center gap-6">
-                    <div class="flex-1 text-center md:text-left w-full">
-                        <div class="flex items-center justify-between mb-1">
-                            <h3 class="text-xl font-bold font-english text-green-deep"><?php echo htmlspecialchars($a['title']); ?></h3>
-                            <div class="equalizer" id="eq-home-<?php echo $a['id']; ?>">
-                                <span></span><span></span><span></span><span></span><span></span>
-                            </div>
+<section id="audios" class="relative py-20 bg-cream overflow-hidden">
+    <!-- Full-bleed gold panel (right side, page ke kinare tak) -->
+    <svg class="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 w-1/2 h-[80%] pointer-events-none select-none z-0" viewBox="0 0 400 360" preserveAspectRatio="none">
+        <path d="M62,0 L380,0 Q400,0 400,20 L400,340 Q400,360 380,360 L72,360 C34,320 92,272 52,232 C16,196 82,150 46,110 C22,76 70,38 62,0 Z" fill="#EAE3D3"/>
+    </svg>
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <?php
+        $ap_data = array_map(function($a){
+            return ['title' => $a['title'], 'url' => $a['audio_url']];
+        }, $audios);
+        ?>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+            <!-- Left: Audio Player -->
+            <div class="relative order-1">
+            <!-- Lantern + Crescent decoration -->
+            <div class="absolute -top-10 -left-2 md:-left-12 z-20 w-28 pointer-events-none select-none">
+                <svg viewBox="0 0 120 150" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <mask id="crescentMask">
+                            <rect width="120" height="150" fill="white"/>
+                            <circle cx="56" cy="100" r="30" fill="black"/>
+                        </mask>
+                    </defs>
+                    <line x1="74" y1="0" x2="74" y2="34" stroke="#C9960A" stroke-width="1.5"/>
+                    <line x1="96" y1="0" x2="96" y2="24" stroke="#C9960A" stroke-width="1.5"/>
+                    <g fill="#E8B840">
+                        <rect x="90" y="24" width="12" height="16" rx="3"/>
+                        <rect x="92" y="20" width="8" height="5" rx="1.5"/>
+                        <rect x="93" y="40" width="6" height="4" rx="1"/>
+                    </g>
+                    <g fill="#C9960A">
+                        <rect x="67" y="34" width="14" height="20" rx="3.5"/>
+                        <rect x="69" y="29" width="10" height="6" rx="2"/>
+                        <rect x="71" y="54" width="6" height="5" rx="1.5"/>
+                    </g>
+                    <circle cx="44" cy="105" r="36" fill="#C9960A" mask="url(#crescentMask)"/>
+                </svg>
+            </div>
+
+            <!-- Player Card -->
+            <div class="relative bg-white rounded-3xl shadow-xl border border-gold/15 overflow-hidden p-8 md:p-12">
+                <!-- Pattern overlay -->
+                <div class="absolute inset-0 opacity-[0.06]" style="background-image: radial-gradient(#C9960A 1.5px, transparent 1.5px); background-size: 22px 22px;"></div>
+
+                <div class="relative z-10 text-center">
+                    <h3 class="font-english text-2xl md:text-3xl text-green-deep font-bold mb-5">Listen To Audio Bayan</h3>
+                    <p class="arabic-text text-gold text-3xl md:text-4xl mb-3">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+                    <p id="apTitle" class="text-green-mid font-semibold mb-8 min-h-[1.5rem]">—</p>
+
+                    <!-- Progress bar -->
+                    <div class="flex items-center gap-3 mb-8">
+                        <span id="apCurrent" class="text-xs text-muted font-mono w-10 text-right">0:00</span>
+                        <div id="apBar" class="flex-1 h-2 bg-gray-200 rounded-full cursor-pointer relative">
+                            <div id="apProgress" class="absolute top-0 left-0 h-full bg-gold rounded-full" style="width:0%"></div>
                         </div>
-                        <div class="w-full mt-3">
-                            <audio id="home-audio-<?php echo $a['id']; ?>" onplay="document.getElementById('eq-home-<?php echo $a['id']; ?>').classList.add('playing')" onpause="document.getElementById('eq-home-<?php echo $a['id']; ?>').classList.remove('playing')" onended="document.getElementById('eq-home-<?php echo $a['id']; ?>').classList.remove('playing')" controls class="w-full h-10 rounded outline-none" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">
-                                <source src="<?php echo htmlspecialchars($a['audio_url']); ?>" type="audio/mpeg">
-                            </audio>
-                        </div>
+                        <span id="apDuration" class="text-xs text-muted font-mono w-10">0:00</span>
                     </div>
-                    <div class="hidden md:block flex-shrink-0 text-gold font-mono font-semibold">
-                        <?php echo htmlspecialchars($a['duration']); ?>
+
+                    <!-- Controls -->
+                    <div class="flex items-center justify-center gap-8">
+                        <button onclick="apPrev()" class="text-green-deep hover:text-gold transition" aria-label="Previous">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+                        </button>
+                        <button id="apPlayBtn" onclick="apToggle()" class="w-16 h-16 rounded-full bg-green-mid hover:bg-green-deep text-white flex items-center justify-center shadow-lg transition" aria-label="Play / Pause">
+                            <svg class="w-7 h-7 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </button>
+                        <button onclick="apNext()" class="text-green-deep hover:text-gold transition" aria-label="Next">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                        </button>
                     </div>
+
+                    <audio id="apAudio" preload="metadata"></audio>
                 </div>
-            <?php endforeach; ?>
-        </div>
-        <div class="mt-8 text-center">
-            <a href="audios.php" class="text-green-mid hover:text-green-deep font-semibold text-sm transition">Listen to All Audios &rarr;</a>
+            </div>
+            </div>
+
+            <!-- Right: Mosque Image -->
+            <div class="order-2 relative flex items-center justify-center min-h-[440px]">
+                <img src="<?php echo SITE_URL; ?>/image/mosque.jpg" alt="Mosque" class="relative z-10 w-full max-w-lg h-[400px] object-cover">
+            </div>
+
         </div>
     </div>
+
+    <script>
+    (function(){
+        var apList = <?php echo json_encode($ap_data, JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
+        if(!apList || !apList.length){ return; }
+        var apIndex = 0;
+        var audio = document.getElementById('apAudio');
+        var titleEl = document.getElementById('apTitle');
+        var curEl = document.getElementById('apCurrent');
+        var durEl = document.getElementById('apDuration');
+        var progEl = document.getElementById('apProgress');
+        var barEl = document.getElementById('apBar');
+        var btn = document.getElementById('apPlayBtn');
+        var playIcon = '<svg class="w-7 h-7 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+        var pauseIcon = '<svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>';
+
+        function fmt(s){ if(isNaN(s)||!isFinite(s)) return '0:00'; var m=Math.floor(s/60), x=Math.floor(s%60); return m+':'+(x<10?'0':'')+x; }
+        function load(i, play){
+            apIndex = (i % apList.length + apList.length) % apList.length;
+            audio.src = apList[apIndex].url;
+            titleEl.textContent = apList[apIndex].title;
+            progEl.style.width = '0%';
+            curEl.textContent = '0:00';
+            durEl.textContent = '0:00';
+            if(play){ audio.play(); }
+        }
+        window.apToggle = function(){ if(audio.paused){ audio.play(); } else { audio.pause(); } };
+        window.apPrev = function(){ load(apIndex-1, true); };
+        window.apNext = function(){ load(apIndex+1, true); };
+        audio.addEventListener('play', function(){ btn.innerHTML = pauseIcon; });
+        audio.addEventListener('pause', function(){ btn.innerHTML = playIcon; });
+        audio.addEventListener('timeupdate', function(){
+            curEl.textContent = fmt(audio.currentTime);
+            if(audio.duration){ progEl.style.width = (audio.currentTime/audio.duration*100)+'%'; }
+        });
+        audio.addEventListener('loadedmetadata', function(){ durEl.textContent = fmt(audio.duration); });
+        audio.addEventListener('ended', function(){ load(apIndex+1, true); });
+        barEl.addEventListener('click', function(e){
+            if(!audio.duration) return;
+            var r = barEl.getBoundingClientRect();
+            audio.currentTime = (e.clientX - r.left) / r.width * audio.duration;
+        });
+        load(0, false);
+    })();
+    </script>
 </section>
 
 <!-- Fatwa Q&A Section -->
@@ -531,50 +642,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_message'])) {
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div class="bg-green-deep rounded p-6 flex flex-col items-center justify-center text-center aspect-square hover:shadow-lg transition group cursor-pointer">
-                <div class="w-16 h-16 rounded-full border-2 border-gold flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-green-deep transition mb-4">
+            <div class="relative bg-gradient-to-br from-green-deep to-green-mid rounded-xl p-6 flex flex-col items-center justify-center text-center aspect-square shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer border border-gold/10 overflow-hidden">
+                <div class="absolute inset-0 opacity-[0.07]" style="background-image: radial-gradient(#C9960A 1px, transparent 1px); background-size: 16px 16px;"></div>
+                <div class="relative z-10 w-16 h-16 rounded-full border-2 border-gold flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-green-deep group-hover:scale-110 transition-all duration-300 mb-4">
                     <svg class="w-8 h-8 ml-1" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M8 5v14l11-7z" />
                     </svg>
                 </div>
-                <h4 class="text-white font-semibold text-lg">YouTube</h4>
-                <p class="text-gold-pale text-sm mt-1">Weekly Tafsir</p>
+                <h4 class="relative z-10 text-white font-semibold text-lg">YouTube</h4>
+                <p class="relative z-10 text-gold-pale text-sm mt-1">Weekly Tafsir</p>
             </div>
-            <div class="bg-green-deep rounded p-6 flex flex-col items-center justify-center text-center aspect-square hover:shadow-lg transition group cursor-pointer">
-                <div class="w-16 h-16 rounded-full border-2 border-gold flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-green-deep transition mb-4">
+            <div class="relative bg-gradient-to-br from-green-deep to-green-mid rounded-xl p-6 flex flex-col items-center justify-center text-center aspect-square shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer border border-gold/10 overflow-hidden">
+                <div class="absolute inset-0 opacity-[0.07]" style="background-image: radial-gradient(#C9960A 1px, transparent 1px); background-size: 16px 16px;"></div>
+                <div class="relative z-10 w-16 h-16 rounded-full border-2 border-gold flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-green-deep group-hover:scale-110 transition-all duration-300 mb-4">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
                     </svg>
                 </div>
-                <h4 class="text-white font-semibold text-lg">Podcast</h4>
-                <p class="text-gold-pale text-sm mt-1">Q&A Sessions</p>
+                <h4 class="relative z-10 text-white font-semibold text-lg">Podcast</h4>
+                <p class="relative z-10 text-gold-pale text-sm mt-1">Q&A Sessions</p>
             </div>
-            <div class="bg-green-deep rounded p-6 flex flex-col items-center justify-center text-center aspect-square hover:shadow-lg transition group cursor-pointer">
-                <div class="w-16 h-16 rounded-full border-2 border-gold flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-green-deep transition mb-4">
+            <div class="relative bg-gradient-to-br from-green-deep to-green-mid rounded-xl p-6 flex flex-col items-center justify-center text-center aspect-square shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer border border-gold/10 overflow-hidden">
+                <div class="absolute inset-0 opacity-[0.07]" style="background-image: radial-gradient(#C9960A 1px, transparent 1px); background-size: 16px 16px;"></div>
+                <div class="relative z-10 w-16 h-16 rounded-full border-2 border-gold flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-green-deep group-hover:scale-110 transition-all duration-300 mb-4">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                     </svg>
                 </div>
-                <h4 class="text-white font-semibold text-lg">Short Clips</h4>
-                <p class="text-gold-pale text-sm mt-1">Daily Reminders</p>
+                <h4 class="relative z-10 text-white font-semibold text-lg">Short Clips</h4>
+                <p class="relative z-10 text-gold-pale text-sm mt-1">Daily Reminders</p>
             </div>
-            <div class="bg-green-deep rounded p-6 flex flex-col items-center justify-center text-center aspect-square hover:shadow-lg transition group cursor-pointer">
-                <div class="w-16 h-16 rounded-full border-2 border-gold flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-green-deep transition mb-4">
+            <div class="relative bg-gradient-to-br from-green-deep to-green-mid rounded-xl p-6 flex flex-col items-center justify-center text-center aspect-square shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer border border-gold/10 overflow-hidden">
+                <div class="absolute inset-0 opacity-[0.07]" style="background-image: radial-gradient(#C9960A 1px, transparent 1px); background-size: 16px 16px;"></div>
+                <div class="relative z-10 w-16 h-16 rounded-full border-2 border-gold flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-green-deep group-hover:scale-110 transition-all duration-300 mb-4">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
                     </svg>
                 </div>
-                <h4 class="text-white font-semibold text-lg">Live Q&A</h4>
-                <p class="text-gold-pale text-sm mt-1">Monthly Streams</p>
+                <h4 class="relative z-10 text-white font-semibold text-lg">Live Q&A</h4>
+                <p class="relative z-10 text-gold-pale text-sm mt-1">Monthly Streams</p>
             </div>
         </div>
 
         <div class="flex flex-wrap justify-center gap-4 mb-12">
-            <span class="bg-green-mid text-white px-4 py-2 rounded text-sm hover:bg-green-deep transition cursor-pointer">YouTube</span>
-            <span class="bg-green-mid text-white px-4 py-2 rounded text-sm hover:bg-green-deep transition cursor-pointer">Instagram</span>
-            <span class="bg-green-mid text-white px-4 py-2 rounded text-sm hover:bg-green-deep transition cursor-pointer">Facebook</span>
-            <span class="bg-green-mid text-white px-4 py-2 rounded text-sm hover:bg-green-deep transition cursor-pointer">Podcast</span>
-            <span class="bg-green-mid text-white px-4 py-2 rounded text-sm hover:bg-green-deep transition cursor-pointer">Newsletter</span>
+            <span class="bg-green-mid text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-green-deep hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer">YouTube</span>
+            <span class="bg-green-mid text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-green-deep hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer">Instagram</span>
+            <span class="bg-green-mid text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-green-deep hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer">Facebook</span>
+            <span class="bg-green-mid text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-green-deep hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer">Podcast</span>
+            <span class="bg-green-mid text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-green-deep hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer">Newsletter</span>
         </div>
 
         <div class="bg-green-deep p-8 rounded text-center flex flex-col md:flex-row items-center justify-between gap-6">
@@ -677,84 +792,65 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_message'])) {
         </div>
     </div>
 </section> -->
-<section id="contact" class="py-20 bg-cream">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+<section id="contact" class="relative py-20 bg-cream overflow-hidden">
+    <!-- Decorative mosque silhouette + hill (bottom-left) -->
+    <img src="<?php echo SITE_URL; ?>/image/donate-shape.png" alt="" class="absolute bottom-0 left-0 w-72 md:w-96 pointer-events-none select-none">
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+            <!-- Left: Heading + Image -->
             <div>
-                <h2 class="font-english text-4xl text-green-deep mb-2">Contact & Maktaba</h2>
-                <h3 class="arabic-text text-gold text-3xl mb-8">رابطہ</h3>
+                <span class="inline-flex items-center gap-2 bg-white shadow-sm px-4 py-2 rounded-full text-sm font-semibold text-green-deep mb-6">
+                    <span class="w-2.5 h-2.5 rounded-full bg-gold"></span> Help &amp; Donate
+                </span>
+                <h2 class="font-english text-4xl md:text-5xl text-green-deep font-bold leading-tight mb-2">Donate / Support<br>Our Center</h2>
+                <h3 class="arabic-text text-gold text-3xl mb-6">تعاون</h3>
+                <p class="text-muted text-base leading-relaxed mb-8 max-w-md">Your generous donations help us maintain the maktaba, provide community services, and educate future generations. Every contribution counts and is greatly appreciated.</p>
 
-                <div class="space-y-4 mb-8">
-                    <p class="text-body-text"><strong>Institution:</strong> Maktaba Quddusia</p>
-                    <p class="text-body-text"><strong>Location:</strong> Pakistan</p>
-                    <p class="text-body-text"><strong>Email:</strong> 
-                </p>
+                <!-- Ornamental cusped frame image -->
+                <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+                    <defs>
+                        <clipPath id="donateClip" clipPathUnits="objectBoundingBox">
+                            <path d="M0.15,0 Q0.5,-0.02 0.85,0 Q0.85,0.15 1,0.15 Q1.02,0.5 1,0.85 Q0.85,0.85 0.85,1 Q0.5,1.02 0.15,1 Q0.15,0.85 0,0.85 Q-0.02,0.5 0,0.15 Q0.15,0.15 0.15,0 Z"/>
+                        </clipPath>
+                    </defs>
+                </svg>
+                <div class="max-w-md mx-auto lg:mx-0" style="background:#F7F3EC; padding:12px; clip-path:url(#donateClip); filter: drop-shadow(0 12px 22px rgba(0,0,0,0.14));">
+                    <img src="<?php echo SITE_URL; ?>/image/donate-img.jpg" alt="Support Our Center" class="w-full h-72 object-cover" style="clip-path:url(#donateClip);">
                 </div>
-
-                <!-- 1. Form validation attached to the same checkUserLogin logic -->
-                <form action="" method="POST" class="space-y-4" onsubmit="return checkUserLogin(<?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>);">
-                    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-                    
-                    <div>
-                        <input type="text" name="name" placeholder="Name" required 
-                               class="w-full border-b border-gray-300 bg-transparent py-2 focus:border-green-mid outline-none">
-                    </div>
-                    <div>
-                        <input type="email" name="email" placeholder="Email" required 
-                               class="w-full border-b border-gray-300 bg-transparent py-2 focus:border-green-mid outline-none">
-                    </div>
-                    <div>
-                        <input type="text" name="subject" placeholder="Subject" 
-                               class="w-full border-b border-gray-300 bg-transparent py-2 focus:border-green-mid outline-none">
-                    </div>
-                    <div>
-                        <input type="textarea" name="message" placeholder="Message" rows="3" required 
-                                  class="w-full border-b border-gray-300 bg-transparent py-2 focus:border-green-mid outline-none resize-none"></textarea>
-                    </div>
-                    
-                    <button type="submit" name="send_message" 
-                            class="bg-green-deep hover:bg-green-mid text-white font-semibold px-8 py-2 rounded transition mt-4">
-                        Send
-                    </button>
-                </form>
             </div>
 
-            <div class="bg-green-deep rounded-lg p-8 shadow-xl text-white">
-                <div class="flex justify-between items-start mb-6">
-                    <div>
-                        <h2 class="arabic-text text-gold text-3xl mb-1">تعاون</h2>
-                        <h3 class="font-english text-2xl font-semibold">Support the Dawah</h3>
+            <!-- Right: Make Donation Card -->
+            <div class="bg-white rounded-2xl shadow-2xl p-8 md:p-10">
+                <h2 class="font-english text-3xl text-green-deep font-bold mb-1">Make Donation</h2>
+                <h3 class="arabic-text text-gold text-2xl mb-6">عطیہ دیں</h3>
+
+                <div class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <input type="text" placeholder="Enter Your Name" class="w-full bg-beige/40 border border-transparent focus:border-gold rounded-lg px-4 py-3 text-body-text outline-none transition">
+                        <input type="email" placeholder="Your Email" class="w-full bg-beige/40 border border-transparent focus:border-gold rounded-lg px-4 py-3 text-body-text outline-none transition">
                     </div>
-                    <div class="text-gold opacity-50 text-5xl">
-                        &hearts;
+                    <input type="text" placeholder="Company Name (Optional)" class="w-full bg-beige/40 border border-transparent focus:border-gold rounded-lg px-4 py-3 text-body-text outline-none transition">
+                    <input type="text" id="donationAmount" placeholder="Rs 1000" class="w-full bg-beige/40 border border-transparent focus:border-gold rounded-lg px-4 py-3 text-body-text outline-none transition">
+
+                    <!-- Amount buttons -->
+                    <div class="flex flex-wrap gap-2">
+                        <button type="button" onclick="selectAmount(this,'500')" class="amt-btn border border-gold/40 text-green-deep hover:bg-gold hover:text-white rounded-lg px-4 py-2 text-sm font-semibold transition">500</button>
+                        <button type="button" onclick="selectAmount(this,'1000')" class="amt-btn border border-gold/40 text-green-deep hover:bg-gold hover:text-white rounded-lg px-4 py-2 text-sm font-semibold transition">1000</button>
+                        <button type="button" onclick="selectAmount(this,'2500')" class="amt-btn border border-gold/40 text-green-deep hover:bg-gold hover:text-white rounded-lg px-4 py-2 text-sm font-semibold transition">2500</button>
+                        <button type="button" onclick="selectAmount(this,'5000')" class="amt-btn border border-gold/40 text-green-deep hover:bg-gold hover:text-white rounded-lg px-4 py-2 text-sm font-semibold transition">5000</button>
+                        <button type="button" onclick="selectAmount(this,'10000')" class="amt-btn border border-gold/40 text-green-deep hover:bg-gold hover:text-white rounded-lg px-4 py-2 text-sm font-semibold transition">10000</button>
+                        <button type="button" onclick="selectAmount(this,'custom')" class="amt-btn border border-gold/40 text-green-deep hover:bg-gold hover:text-white rounded-lg px-4 py-2 text-sm font-semibold transition">Custom</button>
                     </div>
-                </div>
 
-                <p class="text-gray-300 text-sm mb-8 leading-relaxed">Your support enables us to provide free Islamic education, translate classical texts, and maintain the scholarship platform. All donations support Islamic education and dawah work.</p>
+                    <button id="donateNowBtn" type="button" class="w-full bg-gold hover:bg-gold-light text-white font-semibold py-4 rounded-xl shadow-lg transition text-lg">Submit Donation</button>
 
-                <div class="flex space-x-2 mb-4">
-                    <button class="bg-gold text-white text-xs px-3 py-1 rounded font-semibold">PKR</button>
-                    <button class="bg-green-mid text-white hover:bg-green-600 text-xs px-3 py-1 rounded transition">USD</button>
-                </div>
-
-                <div class="grid grid-cols-4 gap-3 mb-6">
-                    <button class="border border-gold hover:bg-gold hover:text-white rounded py-2 text-sm font-semibold transition">500</button>
-                    <button class="border border-gold hover:bg-gold hover:text-white rounded py-2 text-sm font-semibold transition">1000</button>
-                    <button class="bg-gold text-white rounded py-2 text-sm font-semibold transition shadow-md">2500</button>
-                    <button class="border border-gray-500 text-gray-300 hover:border-gold hover:text-white rounded py-2 text-sm transition">Custom</button>
-                </div>
-
-                <!-- 2. ID added here to trigger click event in JavaScript -->
-                <button id="donateNowBtn" class="w-full bg-gold hover:bg-gold-light text-white font-semibold py-3 rounded transition shadow-lg text-lg mb-6">Donate Now &mdash; Sadaqah Jariyah</button>
-
-                <div class="text-center text-xs text-gray-400">
-                    <p>Supported Payment Methods:</p>
-                    <div class="flex justify-center space-x-4 mt-2">
-                        <span>JazzCash</span>
-                        <span>&bull;</span>
-                        <span>EasyPaisa</span>
-                        <span>&bull;</span>
-                        <span>Bank Transfer</span>
+                    <div class="text-center text-xs text-muted pt-2">
+                        <p>Supported Payment Methods:</p>
+                        <div class="flex justify-center gap-3 mt-1 text-green-deep font-medium">
+                            <span>JazzCash</span><span>&bull;</span><span>EasyPaisa</span><span>&bull;</span><span>Bank Transfer</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -762,11 +858,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_message'])) {
     </div>
 </section>
 <script>
+// Donation amount buttons select logic
+function selectAmount(btn, val) {
+    document.querySelectorAll('.amt-btn').forEach(function(b) {
+        b.classList.remove('bg-gold', 'text-white');
+        b.classList.add('text-green-deep');
+    });
+    btn.classList.add('bg-gold', 'text-white');
+    btn.classList.remove('text-green-deep');
+    var f = document.getElementById('donationAmount');
+    if (val !== 'custom') { f.value = 'Rs ' + val; } else { f.value = ''; f.focus(); }
+}
+</script>
+<script>
 document.querySelectorAll('.view-btn').forEach(btn => {
     btn.addEventListener('click', function() {
         const course = JSON.parse(this.dataset.course);
         const mode = this.dataset.mode;
-        
+
         const modal = document.getElementById('courseModal');
         
         document.getElementById('modalTitleUr').innerText = course.title_ur;
