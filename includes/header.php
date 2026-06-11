@@ -12,7 +12,7 @@ require_once 'config.php';
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lateef:wght@400;500;600&family=Noto+Nastaliq+Urdu:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&family=Lateef:wght@400;500;600&family=Noto+Nastaliq+Urdu:wght@400;500;600&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS (CDN for rapid prototyping) -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -33,7 +33,7 @@ require_once 'config.php';
                     },
                     fontFamily: {
                         arabic: ['Lateef', 'serif'],
-                        english: ['"Cormorant Garamond"', 'serif'],
+                        english: ['Lato', 'sans-serif'],
                         urdu: ['"Noto Nastaliq Urdu"', 'serif'],
                     }
                 }
@@ -45,9 +45,17 @@ require_once 'config.php';
         body {
             background-color: #F7F3EC;
             color: #3A2E22;
-            font-family: <?php echo ($lang == 'ur') ? '"Noto Nastaliq Urdu", serif' : '"Cormorant Garamond", serif'; ?>;
+            font-family: <?php echo ($lang == 'ur') ? '"Noto Nastaliq Urdu", serif' : "'Lato', sans-serif"; ?>;
         }
         .arabic-text { font-family: 'Lateef', serif; }
+        /* Navbar solid state — hero calligraphy texture ke saath */
+        #mainNav.nav-solid {
+            background-color: #1B3C2E;
+            background-image: linear-gradient(rgba(27,60,46,0.85), rgba(27,60,46,0.85)), url('<?php echo SITE_URL; ?>/image/hero-bg.png');
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+        }
         .gold-divider {
             height: 2px;
             background: #C9960A;
@@ -196,12 +204,14 @@ require_once 'config.php';
 <body class="antialiased">
 
 <!-- Navigation -->
-<nav class="sticky top-0 z-50 bg-green-deep shadow-md">
+<nav id="mainNav" class="sticky top-0 z-50 nav-solid transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-20">
-            <!-- Logo -->
-            <div class="flex-shrink-0 flex items-center">
-                <a href="<?php echo SITE_URL; ?>" class="arabic-text text-gold text-3xl font-semibold">محمد اقبال کیلانی</a>
+        <div class="flex justify-between items-center h-32">
+            <!-- Logo (hanging banner) -->
+            <div class="flex-shrink-0 self-start">
+                <a href="<?php echo SITE_URL; ?>" class="block">
+                    <img src="<?php echo SITE_URL; ?>/image/logo-t.png" alt="Muhammad Iqbal Kilani" class="h-48 w-auto drop-shadow-lg">
+                </a>
             </div>
             
             <!-- Desktop Menu -->
@@ -248,9 +258,12 @@ require_once 'config.php';
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <a href="<?php echo SITE_URL; ?>/#about" class="block px-3 py-2 text-white hover:text-gold">About</a>
             <a href="<?php echo SITE_URL; ?>/#courses" class="block px-3 py-2 text-white hover:text-gold">Courses</a>
+            <a href="<?php echo SITE_URL; ?>/#books" class="block px-3 py-2 text-white hover:text-gold">Books</a>
+            <a href="<?php echo SITE_URL; ?>/#articles" class="block px-3 py-2 text-white hover:text-gold">Articles</a>
             <a href="<?php echo SITE_URL; ?>/setting.php" class="block px-3 py-2 text-white hover:text-gold">Directory</a>
             <a href="<?php echo SITE_URL; ?>/#audios" class="block px-3 py-2 text-white hover:text-gold">Audio</a>
             <a href="<?php echo SITE_URL; ?>/#qa" class="block px-3 py-2 text-white hover:text-gold">Q&A</a>
+            <a href="<?php echo SITE_URL; ?>/#contact" class="block px-3 py-2 text-white hover:text-gold">Contact</a>
             <div class="flex flex-col space-y-2 px-3 py-2 mt-4 border-t border-green-mid">
                 <?php if(isset($_SESSION['user_id'])): ?>
                     <span class="text-gold-pale text-sm">Salam, <?php echo htmlspecialchars($_SESSION['user_name'] ?? 'User'); ?></span>
@@ -268,6 +281,25 @@ require_once 'config.php';
         </div>
     </div>
 </nav>
+
+<!-- Navbar transparent-on-top (sirf homepage), scroll par solid green -->
+<script>
+(function(){
+    var nav = document.getElementById('mainNav');
+    if (!nav) return;
+    var p = window.location.pathname;
+    var isHome = (p === '/' || /\/index\.php$/.test(p) || /\/islamic_scholar\/?$/.test(p));
+    function updNav(){
+        if (isHome && window.scrollY < 60) {
+            nav.classList.remove('nav-solid');
+        } else {
+            nav.classList.add('nav-solid');
+        }
+    }
+    window.addEventListener('scroll', updNav, {passive:true});
+    updNav();
+})();
+</script>
 
 <!-- Hidden Google Translate engine (sirf translation chalata hai) -->
 <div id="google_translate_element"></div>

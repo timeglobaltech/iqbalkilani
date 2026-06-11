@@ -35,23 +35,16 @@
         <!-- ===== Main Footer Columns ===== -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 py-16">
 
-            <!-- Col 1: Decorative Gold Badge -->
+            <!-- Col 1: Decorative Gold Badge (image) -->
             <div class="flex justify-center md:justify-start">
-                <div class="relative w-44 h-64 flex items-center justify-center">
-                    <!-- Mihrab / Lantern shape -->
-                    <svg class="absolute inset-0 w-full h-full" viewBox="0 0 180 290" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M90 2 C150 42 172 100 172 145 C172 190 150 248 90 288 C30 248 8 190 8 145 C8 100 30 42 90 2 Z" fill="#C9960A"/>
-                        <path d="M90 14 C144 50 162 102 162 145 C162 188 144 240 90 276 C36 240 18 188 18 145 C18 102 36 50 90 14 Z" fill="none" stroke="#1B3C2E" stroke-width="1.5" stroke-opacity="0.35"/>
-                    </svg>
-                    <span class="relative arabic-text text-green-deep text-3xl font-semibold text-center leading-snug px-4">مکتبہ<br>قدوسیہ</span>
-                </div>
+                <img src="<?php echo SITE_URL; ?>/image/footer-logo.png" alt="محمد اقبال کیلانی" class="w-52 h-auto md:-ml-4">
             </div>
 
             <!-- Col 2: Information -->
             <div>
                 <h3 class="font-english text-gold text-xl font-bold uppercase tracking-wider mb-5">Information</h3>
                 <p class="text-gray-300 text-sm leading-relaxed">
-                    Maktaba Quddusia reviving the Qur'an &amp; Sunnah through authentic Islamic scholarship — offering structured courses, classical books, and guidance for the modern Muslim.
+                    Muhammad Iqbal Kilani reviving the Qur'an &amp; Sunnah through authentic Islamic scholarship — offering structured courses, classical books, and guidance for the modern Muslim.
                 </p>
             </div>
 
@@ -72,13 +65,13 @@
                         <span class="flex-shrink-0 w-11 h-11 rounded-full bg-gold flex items-center justify-center text-white">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                         </span>
-                        <p class="text-sm text-gray-300">info@maktabaquddusia.com</p>
+                        <p class="text-sm text-gray-300">info@muhammadiqbalkilani.com</p>
                     </li>
                     <li class="flex items-center gap-4">
                         <span class="flex-shrink-0 w-11 h-11 rounded-full bg-gold flex items-center justify-center text-white">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.66 6.34A8 8 0 0117.66 17.66L12 23l-5.66-5.34A8 8 0 1117.66 6.34z"/><circle cx="12" cy="11" r="2.5" stroke-width="2"/></svg>
                         </span>
-                        <p class="text-sm text-gray-300">Maktaba Quddusia, Pakistan</p>
+                        <p class="text-sm text-gray-300">Muhammad Iqbal Kilani, Pakistan</p>
                     </li>
                 </ul>
             </div>
@@ -102,7 +95,7 @@
         <!-- ===== Bottom Bar ===== -->
         <div class="flex flex-col md:flex-row justify-between items-center gap-4 py-6">
             <p class="text-sm text-gray-400">
-                Maktaba Quddusia &copy; Copyright <?php echo date('Y'); ?>, <span class="text-gold">All Rights Reserved</span>
+                Muhammad Iqbal Kilani &copy; Copyright <?php echo date('Y'); ?>, <span class="text-gold">All Rights Reserved</span>
             </p>
             <div class="flex items-center gap-5">
                 <a href="#" class="text-gray-300 hover:text-gold transition" aria-label="Facebook">
@@ -135,6 +128,62 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+</script>
+
+<!-- ===== Back to Top Button ===== -->
+<style>
+    .back-to-top {
+        position: fixed;
+        bottom: 24px;
+        left: 24px;
+        z-index: 9998;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: #C9960A;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(16px);
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+    }
+    .back-to-top:hover { background: #E8B840; transform: translateY(0) scale(1.08); }
+    .back-to-top.show { opacity: 1; visibility: visible; transform: translateY(0); }
+</style>
+<button id="backToTop" onclick="scrollToTop()" aria-label="Back to top" class="back-to-top">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7"/></svg>
+</button>
+<script>
+(function(){
+    var btn = document.getElementById('backToTop');
+    if (!btn) return;
+    function onScroll(){
+        if (window.scrollY > 300) { btn.classList.add('show'); }
+        else { btn.classList.remove('show'); }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+})();
+function scrollToTop(){
+    var start = window.scrollY || window.pageYOffset;
+    var startTime = null;
+    var duration = 700;
+    function easeInOutQuad(t){ return t < 0.5 ? 2*t*t : -1 + (4 - 2*t)*t; }
+    function step(now){
+        if (!startTime) startTime = now;
+        var elapsed = now - startTime;
+        var progress = Math.min(elapsed / duration, 1);
+        window.scrollTo(0, Math.round(start * (1 - easeInOutQuad(progress))));
+        if (elapsed < duration) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+}
 </script>
 </body>
 </html>

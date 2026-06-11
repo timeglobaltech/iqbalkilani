@@ -21,26 +21,7 @@ $fatwas = $pdo->query("SELECT * FROM fatwas ORDER BY created_at DESC")->fetchAll
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 flex h-screen">
-    <aside class="w-64 bg-[#1B3C2E] text-white flex-shrink-0 overflow-y-auto">
-        <div class="p-6 border-b border-[#2E6B4F] text-center">
-            <h2 class="text-2xl font-serif text-[#C9960A] font-bold">Admin Panel</h2>
-            <p class="text-xs text-gray-300 mt-1">Maktaba Quddusia</p>
-        </div>
-        <nav class="p-4 space-y-2">
-            <a href="dashboard.php" class="block py-2 px-4 hover:bg-[#2E6B4F] rounded text-gray-300 transition">Dashboard</a>
-            <a href="courses.php" class="block py-2 px-4 hover:bg-[#2E6B4F] rounded text-gray-300 transition">Courses</a>
-            <a href="fatwas.php" class="block py-2 px-4 bg-[#2E6B4F] rounded text-white font-medium">Fatwas</a>
-            <a href="articles.php" class="block py-2 px-4 hover:bg-[#2E6B4F] rounded text-gray-300 transition">Articles</a>
-            <a href="books.php" class="block py-2 px-4 hover:bg-[#2E6B4F] rounded text-gray-300 transition">Books</a>
-            <a href="orders.php" class="block py-2 px-4 hover:bg-[#2E6B4F] rounded text-gray-300 transition">Orders</a>
-            <a href="audios.php" class="block py-2 px-4 hover:bg-[#2E6B4F] rounded text-gray-300 transition">Audio & Voice</a>
-            <hr class="my-2 border-[#2E6B4F]">
-            <a href="manage_users.php" class="block py-2 px-4 hover:bg-[#2E6B4F] rounded text-gray-300 transition">Registered Users</a>
-            <a href="users.php" class="block py-2 px-4 hover:bg-[#2E6B4F] rounded text-gray-300 transition">Admin Users</a>
-            <div class="px-4 py-2 text-xs text-gray-400 uppercase tracking-wider">Settings</div>
-            <a href="settings.php" class="block py-2 px-4 hover:bg-green-mid rounded text-gray-300 transition">Settings</a>
-        </nav>
-    </aside>
+    <?php include 'sidebar.php'; ?>
     <main class="flex-1 p-8 overflow-y-auto">
         <h1 class="text-3xl font-bold mb-6">Manage Fatwa Q&A</h1>
         <?php if($message) echo "<div class='bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4'>$message</div>"; ?>

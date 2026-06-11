@@ -53,13 +53,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_message'])) {
 ?>
 
 <!-- Hero Section -->
-<section class="relative bg-green-deep overflow-hidden">
+<section class="relative bg-green-deep overflow-hidden -mt-32 min-h-screen flex items-center">
     <!-- Calligraphy Background Image -->
     <div class="absolute inset-0" style="background-image: url('image/hero-bg.png'); background-size: cover; background-position: center; background-repeat: no-repeat;"></div>
     <!-- Dark overlay taake text clearly parha jaye -->
     <div class="absolute inset-0 bg-green-deep/60"></div>
 
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+    <div class="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-40 pb-24">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
             <!-- Left: Gold Medallion -->
@@ -107,7 +107,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_message'])) {
                 <div class="mt-6 flex flex-wrap gap-2 justify-center">
                     <span class="bg-beige text-green-deep text-xs px-3 py-1 rounded-full border border-gold/20">Tafsir al-Qur'an</span>
                     <span class="bg-beige text-green-deep text-xs px-3 py-1 rounded-full border border-gold/20">Hadith Sciences</span>
-                    <span class="bg-beige text-green-deep text-xs px-3 py-1 rounded-full border border-gold/20">Hanafi Fiqh</span>
                 </div>
             </div>
 
@@ -260,31 +259,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_message'])) {
             <h2 class="font-english text-4xl text-green-deep">Books & Writings</h2>
             <h3 class="arabic-text text-gold text-3xl mt-2">کتب و تصنیفات</h3>
         </div>
-
-        <div class="flex overflow-x-auto space-x-6 pb-4 scrollbar-hide">
+        
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-x-6 gap-y-8">
             <?php foreach (array_slice($books, 0, 6) as $b): ?>
-                <div class="flex-none w-40 text-center group">
-                    <div class="h-56 w-full rounded shadow-md relative flex items-center justify-center text-white p-4 transition-transform duration-300 group-hover:-translate-y-2 overflow-hidden" style="<?php echo empty($b['cover_image']) ? 'background-color: #' . substr(md5($b['id']), 0, 6) . ';' : ''; ?>">
+                <div class="group text-center">
+                    <!-- Book Cover -->
+                    <div class="relative aspect-[3/4] rounded-lg overflow-hidden shadow-lg group-hover:shadow-2xl group-hover:-translate-y-2 transition-all duration-300" style="<?php echo empty($b['cover_image']) ? 'background-color: #' . substr(md5($b['id']), 0, 6) . ';' : ''; ?>">
 
                         <?php if (!empty($b['cover_image'])): ?>
-                            <img src="<?php echo htmlspecialchars($b['cover_image']); ?>"
-                                class="absolute inset-0 w-full h-full object-cover">
+                            <img src="<?php echo htmlspecialchars($b['cover_image']); ?>" class="absolute inset-0 w-full h-full object-cover">
                         <?php else: ?>
-                            <div class="absolute inset-0 flex items-center justify-center bg-green-deep">
-                                <span class="text-white text-lg font-bold tracking-wide">
-                                    Coming Soon
-                                </span>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-green-deep to-green-mid p-4">
+                                <svg class="w-10 h-10 text-gold/60 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.25C10.5 5 8.5 4.5 5 4.5v13c3.5 0 5.5.5 7 1.75M12 6.25C13.5 5 15.5 4.5 19 4.5v13c-3.5 0-5.5.5-7 1.75M12 6.25v13"/></svg>
+                                <span class="text-gold-pale text-xs font-semibold tracking-wide">Coming Soon</span>
                             </div>
                         <?php endif; ?>
 
-                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-70 transition flex flex-col items-center justify-center gap-3 opacity-0 group-hover:opacity-100 z-20">
+                        <!-- Gold spine accent -->
+                        <div class="absolute left-0 top-0 h-full w-1.5 bg-gradient-to-b from-gold-light to-gold z-10"></div>
+
+                        <!-- Hover overlay -->
+                        <div class="absolute inset-0 bg-green-deep/0 group-hover:bg-green-deep/80 transition-all duration-300 flex flex-col items-center justify-center gap-2 opacity-0 group-hover:opacity-100 z-20 p-3">
                             <?php if (!empty($b['file_path'])): ?>
-                                <a href="<?php echo isset($_SESSION['user_id']) ? htmlspecialchars($b['file_path']) : 'login.php?msg=Please login to read books'; ?>" <?php echo isset($_SESSION['user_id']) ? 'target="_blank"' : ''; ?> class="bg-white text-green-deep text-[10px] px-3 py-1 rounded transition font-semibold shadow hover:bg-gray-100">Read / Download</a>
+                                <a href="<?php echo isset($_SESSION['user_id']) ? htmlspecialchars($b['file_path']) : 'login.php?msg=Please login to read books'; ?>" <?php echo isset($_SESSION['user_id']) ? 'target="_blank"' : ''; ?> class="w-full text-center bg-gold hover:bg-gold-light text-white text-[11px] px-3 py-1.5 rounded-full font-semibold shadow transition">Read / Download</a>
                             <?php endif; ?>
-                            <a href="view_book.php?id=<?php echo $b['id']; ?>" class="bg-gold text-white text-[10px] px-3 py-1 rounded font-semibold shadow hover:bg-gold-light transition">View Details</a>
+                            <a href="view_book.php?id=<?php echo $b['id']; ?>" class="w-full text-center bg-white/90 hover:bg-white text-green-deep text-[11px] px-3 py-1.5 rounded-full font-semibold shadow transition">View Details</a>
                         </div>
                     </div>
-                    <h4 class="mt-3 font-english font-medium text-body-text text-sm leading-tight line-clamp-2"><?php echo htmlspecialchars($b['title']); ?></h4>
+                    <!-- Title -->
+                    <h4 class="mt-3 font-english font-semibold text-body-text text-sm leading-tight line-clamp-2 group-hover:text-green-mid transition px-1"><?php echo htmlspecialchars($b['title']); ?></h4>
                 </div>
             <?php endforeach; ?>
         </div>
@@ -406,7 +409,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_message'])) {
 
             <!-- Right: Mosque Image -->
             <div class="order-2 relative flex items-center justify-center min-h-[440px]">
-                <img src="<?php echo SITE_URL; ?>/image/mosque.jpg" alt="Mosque" class="relative z-10 w-full max-w-lg h-[400px] object-cover">
+                <img src="<?php echo SITE_URL; ?>/image/mosque.jpg" alt="Mosque" class="relative z-10 w-full max-w-lg h-[460px] object-cover object-center">
             </div>
 
         </div>
@@ -530,30 +533,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_message'])) {
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <!-- Form Column -->
-            <div class="bg-white p-8 rounded shadow-sm border border-gray-100 border-t-4 border-t-green-mid">
-                
-                <?php 
-                // Check kar rahe hain ke user logged in hai ya nahi
-                $is_logged_in = isset($_SESSION['user_id']) ? 'true' : 'false';
-                ?>
+            <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 border-t-4 border-t-gold">
 
-                <!-- JS Verification: Agar login false hoga to form submit hone se pehle hi alert dikhaega -->
+                <!-- Form Header -->
+                <div class="flex items-center gap-4 mb-6 pb-5 border-b border-gray-100">
+                    <div class="w-14 h-14 rounded-full bg-gradient-to-br from-green-deep to-green-mid flex items-center justify-center text-gold flex-shrink-0 shadow-inner">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <div>
+                        <h4 class="font-english text-2xl font-bold text-green-deep leading-tight">Submit Your Question</h4>
+                        <p class="text-xs text-muted mt-0.5">Confidential scholarly guidance, in sha Allah</p>
+                    </div>
+                </div>
+
+                <?php $is_logged_in = isset($_SESSION['user_id']) ? 'true' : 'false'; ?>
+
                 <form action="fatwa_submit.php" method="POST" onsubmit="return checkUserLogin(<?php echo $is_logged_in; ?>);">
-                    <!-- Aapki config file wala asli CSRF token integration -->
                     <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-                    
-                    <div class="space-y-4">
+
+                    <div class="space-y-5">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-                            <input type="text" name="user_name" required class="w-full border border-gray-300 rounded px-3 py-2 focus:border-green-mid focus:ring-1 focus:ring-green-mid outline-none">
+                            <label class="block text-sm font-semibold text-green-deep mb-1.5">Full Name</label>
+                            <input type="text" name="user_name" required placeholder="Your name" class="w-full bg-beige/40 border border-transparent rounded-lg px-4 py-3 text-body-text focus:border-gold focus:bg-white outline-none transition">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                            <input type="email" name="user_email" required class="w-full border border-gray-300 rounded px-3 py-2 focus:border-green-mid focus:ring-1 focus:ring-green-mid outline-none">
+                            <label class="block text-sm font-semibold text-green-deep mb-1.5">Email Address</label>
+                            <input type="email" name="user_email" required placeholder="you@example.com" class="w-full bg-beige/40 border border-transparent rounded-lg px-4 py-3 text-body-text focus:border-gold focus:bg-white outline-none transition">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Category</label>
-                            <select name="category" class="w-full border border-gray-300 rounded px-3 py-2 focus:border-green-mid outline-none">
+                            <label class="block text-sm font-semibold text-green-deep mb-1.5">Category</label>
+                            <select name="category" class="w-full bg-beige/40 border border-transparent rounded-lg px-4 py-3 text-body-text focus:border-gold focus:bg-white outline-none transition">
                                 <option>Salah & Worship</option>
                                 <option>Fasting & Zakat</option>
                                 <option>Marriage & Family</option>
@@ -563,28 +572,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_message'])) {
                             </select>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Question</label>
-                            <textarea name="question_text" rows="5" required class="w-full border border-gray-300 rounded px-3 py-2 focus:border-green-mid outline-none" placeholder="Type your question here..."></textarea>
+                            <label class="block text-sm font-semibold text-green-deep mb-1.5">Question</label>
+                            <textarea name="question_text" rows="5" required placeholder="Type your question here..." class="w-full bg-beige/40 border border-transparent rounded-lg px-4 py-3 text-body-text focus:border-gold focus:bg-white outline-none transition resize-none"></textarea>
                         </div>
-                        <p class="text-xs text-muted italic">Personal/sensitive matters kept confidential.</p>
-                        <button type="submit" class="w-full bg-gold hover:bg-gold-light text-white font-semibold py-3 rounded transition">Submit Question — بِسْمِ اللَّه</button>
+                        <p class="text-xs text-muted italic flex items-center gap-1.5">
+                            <svg class="w-4 h-4 text-gold flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                            Personal/sensitive matters kept confidential.
+                        </p>
+                        <button type="submit" class="w-full bg-gold hover:bg-gold-light text-white font-semibold py-3.5 rounded-lg shadow-md hover:shadow-lg transition">Submit Question — بِسْمِ اللَّه</button>
                     </div>
                 </form>
             </div>
 
             <!-- Recently Answered Column -->
             <div>
-                <h4 class="text-xl text-green-deep mb-6 font-english border-b border-gray-200 pb-2">Recently Answered</h4>
+                <h4 class="font-english text-2xl text-green-deep mb-6 flex items-center gap-2"><span class="w-1.5 h-6 bg-gold rounded-sm"></span> Recently Answered</h4>
                 <div class="space-y-4">
                     <?php if (!empty($fatwas)): ?>
                         <?php foreach ($fatwas as $fatwa): ?>
-                            <div class="bg-white border border-gray-200 rounded p-4">
-                                <div class="flex justify-between items-center mb-2">
-                                    <span class="text-xs font-semibold bg-beige text-green-deep px-2 py-1 rounded"><?php echo htmlspecialchars($fatwa['category']); ?></span>
-                                    <span class="text-xs text-muted"><?php echo htmlspecialchars($fatwa['reference_no'] ?? ''); ?></span>
+                            <div class="bg-white border border-gray-100 rounded-xl p-5 shadow-sm hover:shadow-md hover:border-gold/30 transition">
+                                <div class="flex justify-between items-center mb-3">
+                                    <span class="text-xs font-semibold bg-gold/10 text-green-deep px-3 py-1 rounded-full border border-gold/20"><?php echo htmlspecialchars($fatwa['category']); ?></span>
+                                    <span class="text-xs text-gold font-mono font-semibold"><?php echo htmlspecialchars($fatwa['reference_no'] ?? ''); ?></span>
                                 </div>
-                                <h5 class="font-medium text-body-text mb-2"><?php echo htmlspecialchars($fatwa['question_text']); ?></h5>
-                                <p class="text-sm text-gray-600 border-l-2 border-gold pl-3 py-1 bg-gray-50"><?php echo htmlspecialchars(substr($fatwa['answer_text'] ?? '', 0, 100)) . '...'; ?></p>
+                                <h5 class="font-english font-semibold text-green-deep text-base mb-3 flex gap-2"><span class="text-gold font-bold">Q.</span> <span><?php echo htmlspecialchars($fatwa['question_text']); ?></span></h5>
+                                <p class="text-sm text-gray-600 border-l-2 border-gold pl-3 py-1"><span class="text-green-mid font-bold">A. </span><?php echo htmlspecialchars(substr($fatwa['answer_text'] ?? '', 0, 100)) . '...'; ?></p>
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
@@ -793,14 +805,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_message'])) {
     </div>
 </section> -->
 <section id="contact" class="relative py-20 bg-cream overflow-hidden">
-    <!-- Decorative mosque silhouette + hill (bottom-left) -->
-    <img src="<?php echo SITE_URL; ?>/image/donate-shape.png" alt="" class="absolute bottom-0 left-0 w-72 md:w-96 pointer-events-none select-none">
 
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
             <!-- Left: Heading + Image -->
-            <div>
+            <div class="lg:col-span-5">
                 <span class="inline-flex items-center gap-2 bg-white shadow-sm px-4 py-2 rounded-full text-sm font-semibold text-green-deep mb-6">
                     <span class="w-2.5 h-2.5 rounded-full bg-gold"></span> Help &amp; Donate
                 </span>
@@ -808,21 +818,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_message'])) {
                 <h3 class="arabic-text text-gold text-3xl mb-6">تعاون</h3>
                 <p class="text-muted text-base leading-relaxed mb-8 max-w-md">Your generous donations help us maintain the maktaba, provide community services, and educate future generations. Every contribution counts and is greatly appreciated.</p>
 
-                <!-- Ornamental cusped frame image -->
-                <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-                    <defs>
-                        <clipPath id="donateClip" clipPathUnits="objectBoundingBox">
-                            <path d="M0.15,0 Q0.5,-0.02 0.85,0 Q0.85,0.15 1,0.15 Q1.02,0.5 1,0.85 Q0.85,0.85 0.85,1 Q0.5,1.02 0.15,1 Q0.15,0.85 0,0.85 Q-0.02,0.5 0,0.15 Q0.15,0.15 0.15,0 Z"/>
-                        </clipPath>
-                    </defs>
-                </svg>
-                <div class="max-w-md mx-auto lg:mx-0" style="background:#F7F3EC; padding:12px; clip-path:url(#donateClip); filter: drop-shadow(0 12px 22px rgba(0,0,0,0.14));">
-                    <img src="<?php echo SITE_URL; ?>/image/donate-img.jpg" alt="Support Our Center" class="w-full h-72 object-cover" style="clip-path:url(#donateClip);">
+                <!-- Image (simple rounded) -->
+                <div class="max-w-md mx-auto lg:mx-0">
+                    <img src="<?php echo SITE_URL; ?>/image/donate-img.jpg?v=2" alt="Support Our Center" class="w-full h-80 object-cover rounded-2xl shadow-xl">
                 </div>
             </div>
 
             <!-- Right: Make Donation Card -->
-            <div class="bg-white rounded-2xl shadow-2xl p-8 md:p-10">
+            <div class="lg:col-span-7 bg-white rounded-2xl shadow-2xl p-8 md:p-12 h-[665px] flex flex-col justify-center">
                 <h2 class="font-english text-3xl text-green-deep font-bold mb-1">Make Donation</h2>
                 <h3 class="arabic-text text-gold text-2xl mb-6">عطیہ دیں</h3>
 

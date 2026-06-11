@@ -233,56 +233,7 @@ $pending_users = $pdo->query("SELECT COUNT(*) FROM users WHERE status = 'pending
 
 <div class="admin-container">
     <!-- Sidebar - same as dashboard.php -->
-    <aside class="sidebar-fixed">
-        <div class="p-6 border-b border-green-mid text-center">
-            <h2 class="text-2xl font-serif text-gold font-bold">Admin Panel</h2>
-            <p class="text-xs text-gray-300 mt-1">Maktaba Quddusia</p>
-        </div>
-        <nav class="p-4 space-y-2">
-            <a href="dashboard.php" class="nav-link <?php echo $current_page == 'dashboard.php' ? 'active' : ''; ?>">
-                Dashboard
-            </a>
-            <a href="courses.php" class="nav-link <?php echo $current_page == 'courses.php' ? 'active' : ''; ?>">
-                Courses
-            </a>
-            <a href="fatwas.php" class="nav-link <?php echo $current_page == 'fatwas.php' ? 'active' : ''; ?>">
-                Fatwas
-                <?php if($pending_fatwas > 0): ?>
-                <span class="bg-gold text-white text-xs px-2 py-0.5 rounded-full ml-2"><?php echo $pending_fatwas; ?></span>
-                <?php endif; ?>
-            </a>
-            <a href="articles.php" class="nav-link <?php echo $current_page == 'articles.php' ? 'active' : ''; ?>">
-                Articles
-            </a>
-            <a href="books.php" class="nav-link <?php echo $current_page == 'books.php' ? 'active' : ''; ?>">
-                Books
-            </a>
-            <a href="orders.php" class="nav-link <?php echo $current_page == 'orders.php' ? 'active' : ''; ?>">
-                Orders
-                <?php if($orders > 0): ?>
-                <span class="bg-gold text-white text-xs px-2 py-0.5 rounded-full ml-2"><?php echo $orders; ?></span>
-                <?php endif; ?>
-            </a>
-            <a href="audios.php" class="nav-link <?php echo $current_page == 'audios.php' ? 'active' : ''; ?>">
-                Audio & Voice
-            </a>
-            <hr class="my-2 border-green-mid">
-            <a href="manage_users.php" class="nav-link <?php echo $current_page == 'manage_users.php' ? 'active' : ''; ?>">
-                Registered Users
-                <?php if($pending_users > 0): ?>
-                <span class="bg-yellow-500 text-white text-xs px-2 py-0.5 rounded-full ml-1"><?php echo $pending_users; ?></span>
-                <?php endif; ?>
-            </a>
-            <a href="users.php" class="nav-link <?php echo $current_page == 'users.php' ? 'active' : ''; ?>">
-                Admin Users
-            </a>
-            <hr class="my-2 border-green-mid">
-            <div class="px-4 py-2 text-xs text-gray-400 uppercase tracking-wider">Settings</div>
-            <a href="settings.php" class="nav-link <?php echo $current_page == 'settings.php' ? 'active' : ''; ?>">
-                Settings
-            </a>
-        </nav>
-    </aside>
+    <?php include 'sidebar.php'; ?>
 
     <!-- Main Content -->
     <main class="main-scroll">

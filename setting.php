@@ -105,10 +105,14 @@ try {
     .highlight { background: #fef08a !important; padding: 1px 4px; border-radius: 4px; font-weight: 750; color: #000; }
 </style>
 
-<section class="bg-gradient-to-br from-[#1a3a2a] to-[#2d5c3e] text-white py-12 text-center shadow-inner">
-    <div class="max-w-4xl mx-auto px-4">
-        <h1 class="text-3xl md:text-4xl font-extrabold mb-3">Knowledge Classification Directory</h1>
-        <p class="text-gray-200 text-sm md:text-base mb-6">Explore authentic Islamic research structured by Scholars, Subjects, Topics, and Core Concepts.</p>
+<section class="relative bg-green-deep text-white py-16 text-center overflow-hidden">
+    <!-- Calligraphy texture -->
+    <div class="absolute inset-0 opacity-[0.10]" style="background-image: url('<?php echo SITE_URL; ?>/image/hero-bg.png'); background-size: cover; background-position: center;"></div>
+    <div class="relative z-10 max-w-4xl mx-auto px-4">
+        <h3 class="arabic-text text-gold text-2xl md:text-3xl mb-2">علمی فہرست</h3>
+        <h1 class="font-english text-4xl md:text-5xl font-bold mb-3">Knowledge Classification Directory</h1>
+        <div class="w-24 h-px bg-gold mx-auto mb-5"></div>
+        <p class="text-gold-pale text-sm md:text-base mb-7">Explore authentic Islamic research structured by Scholars, Subjects, Topics, and Core Concepts.</p>
         
         <div class="flex justify-center gap-2 mb-4 flex-wrap">
             <button onclick="switchSearchType('general')" id="tab-general" class="search-tab active px-4 py-2 rounded-lg font-semibold text-sm">🔍 General</button>
@@ -140,22 +144,24 @@ try {
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div class="lg:col-span-4 space-y-4">
-            <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2 mb-2">
-                <span class="w-2 h-5 bg-[#1a3a2a] rounded-sm"></span> Islamic Scholars
+            <h2 class="font-english text-2xl font-bold text-green-deep flex items-center gap-2 mb-2">
+                <span class="w-1.5 h-6 bg-green-deep rounded-sm"></span> Islamic Scholars
             </h2>
             <div class="space-y-3 custom-scrollbar overflow-y-auto max-h-[70vh] pr-1" id="scholarCardsContainer">
                 <?php $first = true; foreach ($scholars as $scholar): ?>
-                    <div class="scholar-card bg-white border border-gray-200 hover:border-[#5DCAA5] rounded-xl p-5 shadow-sm transition cursor-pointer <?php echo $first ? 'ring-2 ring-[#1a3a2a]' : ''; ?>" 
+                    <div class="scholar-card group relative bg-white border border-gray-100 hover:border-gold hover:shadow-lg rounded-xl p-4 shadow-sm transition-all cursor-pointer overflow-hidden <?php echo $first ? 'ring-2 ring-gold' : ''; ?>"
                          data-scholar-id="<?= $scholar['id'] ?>"
                          onclick="viewScholarTree(this, 'scholar-tree-<?= $scholar['id'] ?>')">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h3 class="font-bold text-gray-900 text-base scholar-name"><?= htmlspecialchars($scholar['name']) ?></h3>
-                                <p class="text-xs text-emerald-700 font-medium mt-0.5"><?= htmlspecialchars($scholar['specialization']) ?></p>
+                        <!-- Gold accent bar -->
+                        <div class="absolute left-0 top-0 h-full w-1 bg-gold/70 group-hover:w-1.5 transition-all"></div>
+                        <div class="flex items-center gap-3 pl-2">
+                            <!-- Avatar with initial -->
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-green-deep to-green-mid flex items-center justify-center text-gold font-english font-bold text-xl shadow-inner"><?= strtoupper(substr(htmlspecialchars($scholar['name']), 0, 1)) ?></div>
+                            <div class="flex-1 min-w-0">
+                                <h3 class="font-english font-bold text-green-deep text-lg scholar-name truncate group-hover:text-green-mid transition"><?= htmlspecialchars($scholar['name']) ?></h3>
+                                <p class="text-xs text-muted font-medium truncate"><?= htmlspecialchars($scholar['specialization']) ?></p>
                             </div>
-                            <span class="bg-emerald-50 text-emerald-700 text-xs font-semibold px-2.5 py-1 rounded-full border border-emerald-200">
-                                <?= count($scholar['subjects']) ?> Subjects
-                            </span>
+                            <span class="flex-shrink-0 bg-gold/10 text-green-deep text-xs font-semibold px-2.5 py-1 rounded-full border border-gold/30"><?= count($scholar['subjects']) ?> Subjects</span>
                         </div>
                     </div>
                 <?php $first = false; endforeach; ?>
@@ -163,8 +169,8 @@ try {
         </div>
 
         <div class="lg:col-span-8">
-            <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2 mb-4">
-                <span class="w-2 h-5 bg-[#f5c242] rounded-sm"></span> Mapping Directory Tree
+            <h2 class="font-english text-2xl font-bold text-green-deep flex items-center gap-2 mb-4">
+                <span class="w-1.5 h-6 bg-gold rounded-sm"></span> Mapping Directory Tree
             </h2>
             <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm min-h-[50vh]">
                 <?php $first = true; foreach ($scholars as $scholar): ?>
@@ -507,8 +513,8 @@ function clearSearch() {
 
 // ── Scholar tree switcher ─────────────────────────────────────────────────
 function viewScholarTree(card, treeId) {
-    document.querySelectorAll('.scholar-card').forEach(c => c.classList.remove('ring-2', 'ring-[#1a3a2a]'));
-    card.classList.add('ring-2', 'ring-[#1a3a2a]');
+    document.querySelectorAll('.scholar-card').forEach(c => c.classList.remove('ring-2', 'ring-gold'));
+    card.classList.add('ring-2', 'ring-gold');
     document.querySelectorAll('.scholar-tree-content').forEach(t => t.classList.add('hidden'));
     let activeTree = document.getElementById(treeId);
     if (activeTree) activeTree.classList.remove('hidden');

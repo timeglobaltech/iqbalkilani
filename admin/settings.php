@@ -7,7 +7,7 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
     exit;
 }
 
-// Fetch stats for sidebar
+// Fetch stats for sidebar badges
 $stats = [];
 $stats['pending_fatwas'] = $pdo->query("SELECT COUNT(*) FROM fatwas WHERE status = 'Pending'")->fetchColumn();
 $stats['pending_users'] = $pdo->query("SELECT COUNT(*) FROM users WHERE status = 'pending'")->fetchColumn();
@@ -418,35 +418,7 @@ $active_tab = $_GET['tab'] ?? 'hierarchy';
 
 <div class="admin-container">
     <!-- Sidebar - Fixed / Sticky -->
-    <aside class="sidebar-fixed bg-green-deep text-white">
-        <div class="p-6 border-b border-green-mid text-center">
-            <h2 class="text-2xl font-serif text-gold font-bold">Admin Panel</h2>
-            <p class="text-xs text-gray-300 mt-1">Maktaba Quddusia</p>
-        </div>
-        <nav class="p-4 space-y-2">
-            <a href="dashboard.php" class="block py-2 px-4 hover:bg-green-mid rounded text-gray-300 transition">Dashboard</a>
-            <a href="courses.php" class="block py-2 px-4 hover:bg-green-mid rounded text-gray-300 transition">Courses</a>
-            <a href="fatwas.php" class="block py-2 px-4 hover:bg-green-mid rounded text-gray-300 transition">
-                Fatwas
-                <span class="bg-gold text-white text-xs px-2 py-0.5 rounded-full ml-2"><?php echo $stats['pending_fatwas']; ?></span>
-            </a>
-            <a href="articles.php" class="block py-2 px-4 hover:bg-green-mid rounded text-gray-300 transition">Articles</a>
-            <a href="books.php" class="block py-2 px-4 hover:bg-green-mid rounded text-gray-300 transition">Books</a>
-            <a href="orders.php" class="block py-2 px-4 hover:bg-green-mid rounded text-gray-300 transition">Orders</a>
-            <a href="audios.php" class="block py-2 px-4 hover:bg-green-mid rounded text-gray-300 transition">Audio & Voice</a>
-            <hr class="my-2 border-green-mid">
-            <a href="manage_users.php" class="block py-2 px-4 hover:bg-green-mid rounded text-gray-300 transition">
-                Registered Users
-                <?php if($stats['pending_users'] > 0): ?>
-                <span class="bg-yellow-500 text-white text-xs px-2 py-0.5 rounded-full ml-1"><?php echo $stats['pending_users']; ?></span>
-                <?php endif; ?>
-            </a>
-            <a href="users.php" class="block py-2 px-4 hover:bg-green-mid rounded text-gray-300 transition">Admin Users</a>
-            <hr class="my-2 border-green-mid">
-            <div class="px-4 py-2 text-xs text-gray-400 uppercase tracking-wider">Settings</div>
-            <a href="settings.php" class="block py-2 px-4 bg-green-mid rounded text-white font-medium transition">Settings</a>
-        </nav>
-    </aside>
+    <?php include 'sidebar.php'; ?>
 
     <!-- Main Content - Scrollable -->
     <main class="main-scroll bg-gray-100">

@@ -95,16 +95,7 @@ $audios = $pdo->query("SELECT * FROM audios ORDER BY id DESC")->fetchAll();
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 flex h-screen">
-    <aside class="w-64 bg-[#1B3C2E] text-white flex-shrink-0 overflow-y-auto">
-        <div class="p-6 border-b border-[#2E6B4F] text-center">
-            <h2 class="text-2xl font-serif text-[#C9960A] font-bold">Admin Panel</h2>
-            <p class="text-xs text-gray-300 mt-1">Maktaba Quddusia</p>
-        </div>
-        <nav class="p-4 space-y-2">
-            <a href="dashboard.php" class="block py-2 px-4 hover:bg-[#2E6B4F] rounded text-gray-300">Dashboard</a>
-            <a href="audios.php" class="block py-2 px-4 bg-[#2E6B4F] rounded text-white font-medium">Audio & Voice</a>
-        </nav>
-    </aside>
+    <?php include 'sidebar.php'; ?>
 
     <main class="flex-1 p-8 overflow-y-auto">
         <h1 class="text-3xl font-bold mb-6"><?php echo $edit_mode ? 'Edit Audio Track' : 'Manage Audio Tracks'; ?></h1>

@@ -88,86 +88,91 @@ $users = $pdo->query("SELECT id, username, created_at FROM admin_users ORDER BY 
     <meta charset="UTF-8">
     <title>Manage Admin Users - Admin</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: { colors: {
+            'green-deep':'#1B3C2E','green-mid':'#2E6B4F','gold':'#C9960A','gold-light':'#E8B840'
+        }}}}
+    </script>
 </head>
 <body class="bg-gray-100 flex h-screen">
-    <aside class="w-64 bg-[#1B3C2E] text-white flex-shrink-0 overflow-y-auto">
-        <div class="p-6 border-b border-[#2E6B4F] text-center">
-            <h2 class="text-2xl font-serif text-[#C9960A] font-bold">Admin Panel</h2>
-            <p class="text-xs text-gray-300 mt-1">Maktaba Quddusia</p>
-        </div>
-        <nav class="p-4 space-y-2">
-            <a href="dashboard.php" class="block py-2 px-4 hover:bg-[#2E6B4F] rounded text-gray-300 transition">Dashboard</a>
-            <a href="courses.php" class="block py-2 px-4 hover:bg-[#2E6B4F] rounded text-gray-300 transition">Courses</a>
-            <a href="fatwas.php" class="block py-2 px-4 hover:bg-[#2E6B4F] rounded text-gray-300 transition">Fatwas</a>
-            <a href="articles.php" class="block py-2 px-4 hover:bg-[#2E6B4F] rounded text-gray-300 transition">Articles</a>
-            <a href="books.php" class="block py-2 px-4 hover:bg-[#2E6B4F] rounded text-gray-300 transition">Books</a>
-            <a href="orders.php" class="block py-2 px-4 hover:bg-[#2E6B4F] rounded text-gray-300 transition">Orders</a>
-            <a href="audios.php" class="block py-2 px-4 hover:bg-[#2E6B4F] rounded text-gray-300 transition">Audio & Voice</a>
-            <hr class="my-2 border-[#2E6B4F]">
-            <a href="manage_users.php" class="block py-2 px-4 hover:bg-[#2E6B4F] rounded text-gray-300 transition">Registered Users</a>
-            <a href="users.php" class="block py-2 px-4 bg-[#2E6B4F] rounded text-white font-medium">Admin Users</a>
-            <hr class="my-2 border-green-mid">
-            <div class="px-4 py-2 text-xs text-gray-400 uppercase tracking-wider">Settings</div>
-            <a href="settings.php" class="block py-2 px-4 hover:bg-[#2E6B4F] rounded text-gray-300 transition">Settings</a>
-        </nav>
-    </aside>
+    <?php include 'sidebar.php'; ?>
 
     <main class="flex-1 p-8 overflow-y-auto">
-        <h1 class="text-3xl font-bold mb-6">Manage Admin Users</h1>
+        <h1 class="text-3xl font-bold text-green-deep mb-6">Manage Admin Users</h1>
 
         <?php if($message): ?>
-            <div class='bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4'><?php echo $message; ?></div>
+            <div class="bg-green-50 border border-green-300 text-green-800 px-4 py-3 rounded-lg mb-5 flex items-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><?php echo $message; ?></div>
         <?php endif; ?>
         <?php if($error): ?>
-            <div class='bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4'><?php echo $error; ?></div>
+            <div class="bg-red-50 border border-red-300 text-red-800 px-4 py-3 rounded-lg mb-5 flex items-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><?php echo $error; ?></div>
         <?php endif; ?>
 
         <!-- Add New Admin -->
-        <div class="bg-white p-6 rounded shadow mb-8">
-            <h2 class="text-xl font-bold mb-4">Create New Admin User</h2>
+        <div class="bg-white p-6 md:p-7 rounded-xl shadow-sm border border-gray-100 mb-8">
+            <h2 class="text-xl font-bold text-green-deep mb-5 flex items-center gap-2"><span class="w-1.5 h-6 bg-gold rounded-sm"></span> Create New Admin User</h2>
             <form method="POST" class="space-y-4">
                 <input type="hidden" name="action" value="add">
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-bold mb-1">Username</label>
-                        <input type="text" name="username" required class="w-full border p-2 rounded" placeholder="e.g., admin2">
+                        <label class="block text-sm font-semibold text-green-deep mb-1.5">Username</label>
+                        <input type="text" name="username" required class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:border-gold focus:ring-2 focus:ring-gold/20 outline-none transition" placeholder="e.g., admin2">
                     </div>
                     <div>
-                        <label class="block text-sm font-bold mb-1">Password</label>
-                        <input type="password" name="password" required class="w-full border p-2 rounded" placeholder="Min 8 chars, letters+numbers">
+                        <label class="block text-sm font-semibold text-green-deep mb-1.5">Password</label>
+                        <input type="password" name="password" required class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:border-gold focus:ring-2 focus:ring-gold/20 outline-none transition" placeholder="Min 8 chars, letters+numbers">
                     </div>
                     <div>
-                        <label class="block text-sm font-bold mb-1">Confirm Password</label>
-                        <input type="password" name="password_confirm" required class="w-full border p-2 rounded">
+                        <label class="block text-sm font-semibold text-green-deep mb-1.5">Confirm Password</label>
+                        <input type="password" name="password_confirm" required class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:border-gold focus:ring-2 focus:ring-gold/20 outline-none transition">
                     </div>
                 </div>
-                <button type="submit" class="bg-green-deep hover:bg-green-mid text-white px-6 py-2 rounded font-bold">Create Admin</button>
+                <button type="submit" class="bg-green-deep hover:bg-green-mid text-white px-6 py-2.5 rounded-lg font-bold shadow-sm hover:shadow-md transition-all flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+                    Create Admin
+                </button>
             </form>
         </div>
 
         <!-- List All Admins -->
-        <div class="bg-white rounded shadow">
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-x-auto">
             <table class="w-full text-left border-collapse">
-                <thead class="bg-gray-50">
-                    <tr class="border-b">
-                        <th class="p-3">Username</th>
-                        <th class="p-3">Created</th>
-                        <th class="p-3">Actions</th>
+                <thead>
+                    <tr class="bg-gray-50 text-gray-600 text-xs uppercase tracking-wider">
+                        <th class="p-4 font-semibold">Username</th>
+                        <th class="p-4 font-semibold">Created</th>
+                        <th class="p-4 font-semibold text-right">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach($users as $u): ?>
-                    <tr class="border-b hover:bg-gray-50">
-                        <td class="p-3 font-bold"><?php echo htmlspecialchars($u['username']); ?> <?php echo $u['id'] === $_SESSION['admin_user_id'] ? '<span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">(You)</span>' : ''; ?></td>
-                        <td class="p-3 text-sm text-gray-600"><?php echo date('d M Y', strtotime($u['created_at'])); ?></td>
-                        <td class="p-3 space-x-2">
-                            <button onclick="openPasswordModal(<?php echo $u['id']; ?>, '<?php echo htmlspecialchars($u['username']); ?>')" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-xs">Change Password</button>
-                            <?php if($u['id'] !== $_SESSION['admin_user_id']): ?>
-                                <a href="?delete=<?php echo $u['id']; ?>" onclick="return confirm('Delete this admin user?')" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs">Delete</a>
-                            <?php endif; ?>
+                    <tr class="border-b border-gray-100 last:border-b-0 hover:bg-gold/5 transition">
+                        <td class="p-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-full bg-gradient-to-br from-green-deep to-green-mid text-gold flex items-center justify-center text-sm font-bold flex-shrink-0"><?php echo strtoupper(substr(htmlspecialchars($u['username']), 0, 1)); ?></div>
+                                <span class="font-semibold text-gray-800"><?php echo htmlspecialchars($u['username']); ?></span>
+                                <?php echo $u['id'] === $_SESSION['admin_user_id'] ? '<span class="text-xs bg-gold/10 text-green-deep border border-gold/20 px-2 py-0.5 rounded-full font-medium">You</span>' : ''; ?>
+                            </div>
+                        </td>
+                        <td class="p-4 text-sm text-gray-500"><?php echo date('d M Y', strtotime($u['created_at'])); ?></td>
+                        <td class="p-4">
+                            <div class="flex gap-1.5 justify-end">
+                                <button onclick="openPasswordModal(<?php echo $u['id']; ?>, '<?php echo htmlspecialchars($u['username']); ?>')" class="inline-flex items-center gap-1.5 bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
+                                    Change Password
+                                </button>
+                                <?php if($u['id'] !== $_SESSION['admin_user_id']): ?>
+                                    <a href="?delete=<?php echo $u['id']; ?>" onclick="return confirm('Delete this admin user?')" class="inline-flex items-center gap-1.5 bg-red-50 hover:bg-red-500 text-red-600 hover:text-white border border-red-200 hover:border-red-500 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                        Delete
+                                    </a>
+                                <?php endif; ?>
+                            </div>
                         </td>
                     </tr>
                     <?php endforeach; ?>
+                    <?php if(empty($users)): ?>
+                    <tr><td colspan="3" class="p-6 text-center text-gray-400">No admin users found.</td></tr>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </div>

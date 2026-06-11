@@ -104,56 +104,7 @@ $pending_fatwas = $pdo->query("SELECT * FROM fatwas WHERE status = 'Pending' ORD
 
 <div class="admin-container">
     <!-- Sidebar - Fixed -->
-    <aside class="sidebar-fixed">
-        <div class="p-6 border-b border-green-mid text-center">
-            <h2 class="text-2xl font-serif text-gold font-bold">Admin Panel</h2>
-            <p class="text-xs text-gray-300 mt-1">Maktaba Quddusia</p>
-        </div>
-        <nav class="p-4 space-y-2">
-            <a href="dashboard.php" class="nav-link <?php echo $current_page == 'dashboard.php' ? 'active' : ''; ?>">
-                Dashboard
-            </a>
-            <a href="courses.php" class="nav-link <?php echo $current_page == 'courses.php' ? 'active' : ''; ?>">
-                Courses
-            </a>
-            <a href="fatwas.php" class="nav-link <?php echo $current_page == 'fatwas.php' ? 'active' : ''; ?>">
-                Fatwas
-                <?php if($stats['pending_fatwas'] > 0): ?>
-                <span class="bg-gold text-white text-xs px-2 py-0.5 rounded-full ml-2"><?php echo $stats['pending_fatwas']; ?></span>
-                <?php endif; ?>
-            </a>
-            <a href="articles.php" class="nav-link <?php echo $current_page == 'articles.php' ? 'active' : ''; ?>">
-                Articles
-            </a>
-            <a href="books.php" class="nav-link <?php echo $current_page == 'books.php' ? 'active' : ''; ?>">
-                Books
-            </a>
-            <a href="orders.php" class="nav-link <?php echo $current_page == 'orders.php' ? 'active' : ''; ?>">
-                Orders
-                <?php if($stats['orders'] > 0): ?>
-                <span class="bg-gold text-white text-xs px-2 py-0.5 rounded-full ml-2"><?php echo $stats['orders']; ?></span>
-                <?php endif; ?>
-            </a>
-            <a href="audios.php" class="nav-link <?php echo $current_page == 'audios.php' ? 'active' : ''; ?>">
-                Audio & Voice
-            </a>
-            <hr class="my-2 border-green-mid">
-            <a href="manage_users.php" class="nav-link <?php echo $current_page == 'manage_users.php' ? 'active' : ''; ?>">
-                Registered Users
-                <?php if($stats['pending_users'] > 0): ?>
-                <span class="bg-yellow-500 text-white text-xs px-2 py-0.5 rounded-full ml-1"><?php echo $stats['pending_users']; ?></span>
-                <?php endif; ?>
-            </a>
-            <a href="users.php" class="nav-link <?php echo $current_page == 'users.php' ? 'active' : ''; ?>">
-                Admin Users
-            </a>
-            <hr class="my-2 border-green-mid">
-            <div class="px-4 py-2 text-xs text-gray-400 uppercase tracking-wider">Settings</div>
-            <a href="settings.php" class="nav-link <?php echo $current_page == 'settings.php' ? 'active' : ''; ?>">
-                Settings
-            </a>
-        </nav>
-    </aside>
+    <?php include 'sidebar.php'; ?>
 
     <!-- Main Content - Scrollable -->
     <main class="main-scroll">
@@ -171,37 +122,91 @@ $pending_fatwas = $pdo->query("SELECT * FROM fatwas WHERE status = 'Pending' ORD
             </header>
 
             <!-- Stats Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
-                <div class="bg-white p-5 rounded-lg shadow-sm border-l-4 border-purple-500">
-                    <h3 class="text-gray-500 text-xs font-semibold uppercase tracking-wider mb-1">Registered Users</h3>
-                    <p class="text-2xl font-bold text-gray-800"><?php echo $stats['users']; ?></p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-8">
+                <!-- Registered Users -->
+                <div onclick="location.href='manage_users.php'" class="relative bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden group cursor-pointer">
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <p class="text-4xl font-extrabold text-gray-800"><?php echo $stats['users']; ?></p>
+                            <h3 class="text-gray-500 text-xs font-semibold uppercase tracking-wider mt-1">Registered Users</h3>
+                        </div>
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-purple-700 text-white flex items-center justify-center shadow-md group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m6-1.13a4 4 0 10-4-4 4 4 0 004 4z"/></svg>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-purple-500 to-purple-700 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></div>
                 </div>
-                <div class="bg-white p-5 rounded-lg shadow-sm border-l-4 border-gold">
-                    <h3 class="text-gray-500 text-xs font-semibold uppercase tracking-wider mb-1">Total Courses</h3>
-                    <p class="text-2xl font-bold text-gray-800"><?php echo $stats['courses']; ?></p>
+                <!-- Total Courses -->
+                <div onclick="location.href='courses.php'" class="relative bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden group cursor-pointer">
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <p class="text-4xl font-extrabold text-gray-800"><?php echo $stats['courses']; ?></p>
+                            <h3 class="text-gray-500 text-xs font-semibold uppercase tracking-wider mt-1">Total Courses</h3>
+                        </div>
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 to-gold text-white flex items-center justify-center shadow-md group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.25C10.5 5 8.5 4.5 5 4.5v13c3.5 0 5.5.5 7 1.75M12 6.25C13.5 5 15.5 4.5 19 4.5v13c-3.5 0-5.5.5-7 1.75M12 6.25v13"/></svg>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-amber-400 to-gold scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></div>
                 </div>
-                <div class="bg-white p-5 rounded-lg shadow-sm border-l-4 border-blue-500">
-                    <h3 class="text-gray-500 text-xs font-semibold uppercase tracking-wider mb-1">Enrollments</h3>
-                    <p class="text-2xl font-bold text-gray-800"><?php echo $stats['enrollments']; ?></p>
+                <!-- Enrollments -->
+                <div onclick="location.href='courses.php'" class="relative bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden group cursor-pointer">
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <p class="text-4xl font-extrabold text-gray-800"><?php echo $stats['enrollments']; ?></p>
+                            <h3 class="text-gray-500 text-xs font-semibold uppercase tracking-wider mt-1">Enrollments</h3>
+                        </div>
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 text-white flex items-center justify-center shadow-md group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-blue-500 to-blue-700 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></div>
                 </div>
-                <div class="bg-white p-5 rounded-lg shadow-sm border-l-4 border-green-500">
-                    <h3 class="text-gray-500 text-xs font-semibold uppercase tracking-wider mb-1">Total Books</h3>
-                    <p class="text-2xl font-bold text-gray-800"><?php echo $stats['books']; ?></p>
+                <!-- Total Books -->
+                <div onclick="location.href='books.php'" class="relative bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden group cursor-pointer">
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <p class="text-4xl font-extrabold text-gray-800"><?php echo $stats['books']; ?></p>
+                            <h3 class="text-gray-500 text-xs font-semibold uppercase tracking-wider mt-1">Total Books</h3>
+                        </div>
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-green-mid to-green-deep text-white flex items-center justify-center shadow-md group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-green-mid to-green-deep scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></div>
                 </div>
-                <div class="bg-white p-5 rounded-lg shadow-sm border-l-4 border-yellow-500">
-                    <h3 class="text-gray-500 text-xs font-semibold uppercase tracking-wider mb-1">Book Orders</h3>
-                    <p class="text-2xl font-bold text-gray-800"><?php echo $stats['orders']; ?></p>
+                <!-- Book Orders -->
+                <div onclick="location.href='orders.php'" class="relative bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden group cursor-pointer">
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <p class="text-4xl font-extrabold text-gray-800"><?php echo $stats['orders']; ?></p>
+                            <h3 class="text-gray-500 text-xs font-semibold uppercase tracking-wider mt-1">Book Orders</h3>
+                        </div>
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-400 to-orange-600 text-white flex items-center justify-center shadow-md group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-orange-400 to-orange-600 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></div>
                 </div>
-                <div class="bg-white p-5 rounded-lg shadow-sm border-l-4 border-red-500">
-                    <h3 class="text-gray-500 text-xs font-semibold uppercase tracking-wider mb-1">Pending Fatwas</h3>
-                    <p class="text-2xl font-bold text-gray-800"><?php echo $stats['pending_fatwas']; ?></p>
+                <!-- Pending Fatwas -->
+                <div onclick="location.href='fatwas.php'" class="relative bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden group cursor-pointer">
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <p class="text-4xl font-extrabold text-gray-800"><?php echo $stats['pending_fatwas']; ?></p>
+                            <h3 class="text-gray-500 text-xs font-semibold uppercase tracking-wider mt-1">Pending Fatwas</h3>
+                        </div>
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-red-500 to-red-700 text-white flex items-center justify-center shadow-md group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-red-500 to-red-700 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></div>
                 </div>
             </div>
 
             <!-- Pending Fatwas Table -->
-            <div class="bg-white rounded-lg shadow-sm mb-8">
-                <div class="p-4 border-b border-gray-200 flex justify-between items-center bg-gray-50 rounded-t-lg">
-                    <h2 class="text-lg font-bold text-gray-800">Recent Pending Fatwas</h2>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 mb-8 overflow-hidden">
+                <div class="p-5 border-b border-gray-200 flex justify-between items-center bg-gray-50">
+                    <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2"><span class="w-1.5 h-6 bg-gold rounded-sm"></span> Recent Pending Fatwas</h2>
                     <?php if($stats['pending_fatwas'] > 0): ?>
                     <a href="fatwas.php" class="text-sm text-gold hover:text-green-mid transition">View All →</a>
                     <?php endif; ?>
@@ -224,13 +229,23 @@ $pending_fatwas = $pdo->query("SELECT * FROM fatwas WHERE status = 'Pending' ORD
                                 </tr>
                             <?php else: ?>
                                 <?php foreach($pending_fatwas as $fatwa): ?>
-                                    <tr class="hover:bg-gray-50 transition border-b border-gray-100 last:border-b-0">
-                                        <td class="p-4 text-sm font-medium text-green-deep"><?php echo htmlspecialchars($fatwa['reference_no']); ?></td>
-                                        <td class="p-4 text-sm text-gray-700"><?php echo htmlspecialchars($fatwa['user_name']); ?></td>
-                                        <td class="p-4 text-sm"><span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs"><?php echo htmlspecialchars($fatwa['category']); ?></span></td>
-                                        <td class="p-4 text-sm text-gray-600 truncate max-w-xs"><?php echo htmlspecialchars(substr($fatwa['question_text'], 0, 60)); ?>...</td>
-                                        <td class="p-4 text-sm text-right">
-                                            <a href="fatwas.php?answer=<?php echo $fatwa['id']; ?>" class="bg-green-mid hover:bg-green-deep text-white px-3 py-1 rounded transition text-xs inline-block">Answer</a>
+                                    <tr class="hover:bg-gold/5 transition border-b border-gray-100 last:border-b-0">
+                                        <td class="p-4">
+                                            <span class="font-mono text-xs font-bold bg-green-deep/5 text-green-deep px-2.5 py-1 rounded-md"><?php echo htmlspecialchars($fatwa['reference_no']); ?></span>
+                                        </td>
+                                        <td class="p-4">
+                                            <div class="flex items-center gap-3">
+                                                <div class="w-9 h-9 rounded-full bg-gradient-to-br from-green-deep to-green-mid text-gold flex items-center justify-center text-sm font-bold flex-shrink-0"><?php echo strtoupper(substr(htmlspecialchars($fatwa['user_name']), 0, 1)); ?></div>
+                                                <span class="text-sm font-medium text-gray-800"><?php echo htmlspecialchars($fatwa['user_name']); ?></span>
+                                            </div>
+                                        </td>
+                                        <td class="p-4"><span class="bg-gold/10 text-green-deep border border-gold/20 px-2.5 py-1 rounded-full text-xs font-medium whitespace-nowrap"><?php echo htmlspecialchars(html_entity_decode($fatwa['category'])); ?></span></td>
+                                        <td class="p-4 text-sm text-gray-500 italic truncate max-w-xs"><?php echo htmlspecialchars(substr($fatwa['question_text'], 0, 60)); ?>...</td>
+                                        <td class="p-4 text-right">
+                                            <a href="fatwas.php?answer=<?php echo $fatwa['id']; ?>" class="inline-flex items-center gap-1.5 bg-green-mid hover:bg-green-deep text-white px-4 py-2 rounded-lg transition-all text-xs font-semibold shadow-sm hover:shadow-md hover:-translate-y-0.5">
+                                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                                                Answer
+                                            </a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

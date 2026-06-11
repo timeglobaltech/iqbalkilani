@@ -108,37 +108,7 @@ if (isset($_GET['edit'])) {
     <!-- ═══════════════════════════════
          SIDEBAR  (exact copy from dashboard)
     ════════════════════════════════════ -->
-    <aside class="w-full md:w-64 bg-green-deep text-white flex-shrink-0">
-        <div class="p-6 border-b border-green-mid text-center">
-            <h2 class="text-2xl font-serif text-gold font-bold">Admin Panel</h2>
-            <p class="text-xs text-gray-300 mt-1">Maktaba Quddusia</p>
-        </div>
-        <nav class="p-4 space-y-2">
-            <a href="dashboard.php" class="block py-2 px-4 hover:bg-green-mid rounded text-gray-300 transition">Dashboard</a>
-            <a href="courses.php"   class="block py-2 px-4 hover:bg-green-mid rounded text-gray-300 transition">Courses</a>
-            <a href="fatwas.php"    class="block py-2 px-4 hover:bg-green-mid rounded text-gray-300 transition">
-                Fatwas
-                <?php if ($pending_fatwas > 0): ?>
-                    <span class="bg-gold text-white text-xs px-2 py-0.5 rounded-full ml-2"><?php echo $pending_fatwas; ?></span>
-                <?php endif; ?>
-            </a>
-            <a href="articles.php"  class="block py-2 px-4 bg-green-mid rounded text-white font-medium">Articles</a>
-            <a href="books.php"     class="block py-2 px-4 hover:bg-green-mid rounded text-gray-300 transition">Books</a>
-            <a href="orders.php"    class="block py-2 px-4 hover:bg-green-mid rounded text-gray-300 transition">Orders</a>
-            <a href="audios.php"    class="block py-2 px-4 hover:bg-green-mid rounded text-gray-300 transition">Audio &amp; Voice</a>
-            <hr class="my-2 border-green-mid">
-            <a href="manage_users.php" class="block py-2 px-4 hover:bg-green-mid rounded text-gray-300 transition">
-                Registered Users
-                <?php if ($pending_users > 0): ?>
-                    <span class="bg-yellow-500 text-white text-xs px-2 py-0.5 rounded-full ml-1"><?php echo $pending_users; ?></span>
-                <?php endif; ?>
-            </a>
-            <a href="users.php" class="block py-2 px-4 hover:bg-green-mid rounded text-gray-300 transition">Admin Users</a>
-            
-             <div class="px-4 py-2 text-xs text-gray-400 uppercase tracking-wider">Settings</div>
-            <a href="settings.php" class="block py-2 px-4 hover:bg-green-mid rounded text-gray-300 transition">Settings</a>
-        </nav>
-    </aside>
+    <?php include 'sidebar.php'; ?>
 
     <!-- ═══════════════════════════════
          MAIN CONTENT
