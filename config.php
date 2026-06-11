@@ -20,10 +20,9 @@ $_SESSION['last_activity'] = time();
 
 // Database configuration
 define('DB_HOST', '127.0.0.1');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'islamic_scholar');
-
+define('DB_USER', 'iqbalkilani_user');
+define('DB_PASS', 'Batam3xpgl.,');
+define('DB_NAME', 'iqbalkilani_db');
 // Try to connect to the database
 try {
     $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4", DB_USER, DB_PASS);
