@@ -186,5 +186,5 @@ if (!isset($_SESSION['lang'])) {
 $lang = $_SESSION['lang'];
 
 // Site URL
-define('SITE_URL', 'http://iqbalkilani.store/'); // Change this to your actual domain
+define('SITE_URL', 'https://iqbalkilani.store/'); // Change this to your actual domain
 ?>
