@@ -16,6 +16,6 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
             cd /var/www/iqbalkilani.store
-            git pull origin main
+            git reset --hard HEAD && git pull origin main
             chmod -R 755 .
             chown -R www-data:www-data .
