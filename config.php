@@ -185,5 +185,5 @@ if (!isset($_SESSION['lang'])) {
 $lang = $_SESSION['lang'];
 
 // Site URL
-define('SITE_URL', 'http://localhost/islamic_scholar');
+define('SITE_URL', 'https://iqbalkilani.store/');
 ?>
