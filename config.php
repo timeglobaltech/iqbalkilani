@@ -20,9 +20,9 @@ $_SESSION['last_activity'] = time();
 
 // Database configuration
 define('DB_HOST', '127.0.0.1');
-define('DB_USER', 'iqbalkilani_user');
-define('DB_PASS', 'Batam3xpgl');
-define('DB_NAME', 'iqbalkilani_db');
+define('DB_USER', 'root');
+define('DB_PASS', '');
+define('DB_NAME', 'islamic_scholar');
 
 // Try to connect to the database
 try {
@@ -186,5 +186,5 @@ if (!isset($_SESSION['lang'])) {
 $lang = $_SESSION['lang'];
 
 // Site URL
-define('SITE_URL', 'https://iqbalkilani.store/'); // Change this to your actual domain
+define('SITE_URL', 'http://localhost/islamic_scholar');
 ?>
